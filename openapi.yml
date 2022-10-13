@@ -1,0 +1,136 @@
+openapi: '3.0.2'
+info:
+  title: MICRO SERVICES CURD OPERATIONS
+  version: '2.0'
+servers:
+  - url: http://localhost:8000
+
+
+paths:
+  /createTopic:
+    post:
+      tags:
+        - user
+      description: CreateTopic
+      operationId: CreateTopic
+      responses:
+        '201':
+          description: CreateTopic Sucessfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Create Topic Failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+      requestBody:
+        description: Create Topic
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BODYDATA'
+  /getTopic:
+    get:
+      tags:
+        - user
+      description:  GetTopic
+      operationId: GetTopic
+      responses:
+        '201':
+          description: Get Topic Sucessfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BODYDATA'
+        '400':
+          description: Get Topic Failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /UpdateTopic/{topic_id}:
+    put:
+      tags:
+        - User
+      description:  UpdateTopic
+      operationId: UpdateTopic
+      parameters:
+        - name: topic_id
+          in: path
+          description: topic_id 
+          required: true
+          schema:
+            type: number
+      responses:
+        '201':
+          description: Update Topic Sucess
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Update Topic Failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+      requestBody:
+        description: UpdateTopic
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BODYDATA'
+  /deleteTopic/{topic_id}:
+    delete:
+      tags:
+        - user
+      description:  deleteTopic
+      operationId: deleteTopic
+      parameters:
+        - name: topic_id
+          in: path
+          description: topic_id 
+          required: true
+          schema:
+            type: number
+      responses:
+        '201':
+          description:  DeleteTopicSucessFully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: DeleteTopicFailure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+            
+
+components:
+  schemas:
+    ApiResponse:
+      type: object
+      description:  ResponseInStatusCode
+      properties:
+        code: 
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string    
+          
+    BODYDATA:
+      type: object
+      properties:
+        topic_id: 
+          type: number
+        topic_name:
+          type: string
